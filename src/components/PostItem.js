@@ -107,7 +107,7 @@ const PostItem = ({ data }) => {
           </TouchableOpacity>
           <TouchableOpacity>
             <Ionic
-              name="ios-chatbubble-outline"
+              name="chatbubble-outline"
               style={{ fontSize: 20, paddingRight: 10 }}
             />
           </TouchableOpacity>

@@ -18,9 +18,44 @@ import FriendProfile from './src/screens/FriendProfile';
 import EditProfile from './src/screens/EditProfile';
 import Ionic from 'react-native-vector-icons/Ionicons';
 // import messaging from '@react-native-firebase/messaging';
-// import firebase from '@react-native-firebase/app';
 // import { Alert } from 'react-native';
+import { getApp } from '@react-native-firebase/app';
+import {
+  getMessaging,
+  requestPermission,
+  getToken,
+  onMessage,
+  onTokenRefresh,
+  setBackgroundMessageHandler,
+  AuthorizationStatus,
+} from '@react-native-firebase/messaging';
+import { Alert } from 'react-native';
 
+// FCM 권한 요청
+async function requestUserPermission() {
+  try {
+    const app = getApp();
+    const messaging = getMessaging(app);
+
+    const authStatus = await requestPermission(messaging);
+    const enabled =
+      authStatus === AuthorizationStatus.AUTHORIZED ||
+      authStatus === AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log('🔐 FCM 권한 허용됨:', authStatus);
+
+      const token = await getToken(messaging);
+      console.log('📱 FCM Token:', token);
+
+      // TODO: 서버에 token 전송 로직 추가
+    } else {
+      console.log('🚫 FCM 권한 거부됨');
+    }
+  } catch (error) {
+    console.error('❌ FCM Permission Error:', error);
+  }
+}
 const Tab = createBottomTabNavigator();
 
 const getTabBarIcon = (route, focused, size, color) => {
@@ -61,32 +96,36 @@ const BottomTabScreen = () => {
 
 function App() {
   const Stack = createNativeStackNavigator();
-  // console.log(firebase.app().name); // '[DEFAULT]' 출력돼야 정상
 
-  // useEffect(() => {
-  //   // ✅ 앱이 실행 중일 때 메시지 수신
-  //   const unsubscribe = messaging().onMessage(async remoteMessage => {
-  //     Alert.alert(
-  //       remoteMessage.notification?.title,
-  //       remoteMessage.notification?.body,
-  //     );
-  //   });
+  // requestUserPermission();
 
-  //   // ✅ 백그라운드 메시지 처리 핸들러 등록
-  //   messaging().setBackgroundMessageHandler(async remoteMessage => {
-  //     console.log('Message handled in the background!', remoteMessage);
-  //   });
+  useEffect(() => {
+    const app = getApp();
+    const messaging = getMessaging(app);
 
-  //   // ✅ 알림 권한 요청 (Android는 자동 허용이지만, iOS는 필요)
-  //   messaging().requestPermission();
+    // ✅ 권한 요청 및 토큰 발급
+    requestUserPermission();
 
-  //   // ✅ 디바이스 토큰 가져오기
-  //   messaging()
-  //     .getToken()
-  //     .then(token => console.log('FCM Token:', token));
+    // ✅ FCM 메시지 수신 (앱 실행 중)
+    const unsubscribeOnMessage = onMessage(messaging, async remoteMessage => {
+      console.log('📩 포그라운드 메시지:', remoteMessage);
+      Alert.alert(
+        remoteMessage.notification?.title,
+        remoteMessage.notification?.body,
+      );
+    });
 
-  //   return unsubscribe;
-  // }, []);
+    // ✅ 토큰 갱신 이벤트
+    const unsubscribeOnTokenRefresh = onTokenRefresh(messaging, token => {
+      console.log('♻️ 새 FCM 토큰:', token);
+      // TODO: 서버에 새로운 토큰 갱신 전송
+    });
+
+    return () => {
+      unsubscribeOnMessage();
+      unsubscribeOnTokenRefresh();
+    };
+  }, []);
 
   return (
     <NavigationContainer>

@@ -5,11 +5,10 @@ import {
   StatusBar,
   Text,
   TouchableOpacity,
-  SafeAreaView,
   View,
 } from 'react-native';
 import React, { useEffect, useRef } from 'react';
-// import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import Ionic from 'react-native-vector-icons/Ionicons';
 // import { useNavigation } from '@react-navigation/native';
@@ -47,9 +46,7 @@ const Status = ({ route, navigation }) => {
 
   return (
     <SafeAreaView
-      edges={['bottom', 'top']}
       style={{
-        flex: 1,
         backgroundColor: 'black',
         height: '100%',
         justifyContent: 'center',
@@ -101,9 +98,9 @@ const Status = ({ route, navigation }) => {
             style={{
               borderRadius: 100,
               backgroundColor: 'orange',
+              resizeMode: 'cover',
               width: '92%',
               height: '92%',
-              resizeMode: 'cover',
             }}
           />
         </View>
