@@ -30,6 +30,7 @@ import {
   AuthorizationStatus,
 } from '@react-native-firebase/messaging';
 import { Alert } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // FCM 권한 요청
 async function requestUserPermission() {
@@ -128,14 +129,16 @@ function App() {
   }, []);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Bottom" component={BottomTabScreen} />
-        <Stack.Screen name="Status" component={Status} />
-        <Stack.Screen name="FriendProfile" component={FriendProfile} />
-        <Stack.Screen name="EditProfile" component={EditProfile} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Bottom" component={BottomTabScreen} />
+          <Stack.Screen name="Status" component={Status} />
+          <Stack.Screen name="FriendProfile" component={FriendProfile} />
+          <Stack.Screen name="EditProfile" component={EditProfile} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 

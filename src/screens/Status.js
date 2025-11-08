@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import React, { useEffect, useRef } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import Ionic from 'react-native-vector-icons/Ionicons';
 // import { useNavigation } from '@react-navigation/native';
@@ -51,11 +51,12 @@ const Status = ({ route, navigation }) => {
         height: '100%',
         justifyContent: 'center',
       }}
+      edges={['top', 'bottom']}
     >
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View
         style={{
-          marginTop: Platform.OS === 'ios' ? statusBarHeight : 0,
+          marginTop: Platform.OS === 'ios' ? statusBarHeight : statusBarHeight,
           height: 3,
           width: '100%',
           borderWidth: 1,
@@ -74,7 +75,7 @@ const Status = ({ route, navigation }) => {
       </View>
       <View
         style={{
-          marginTop: Platform.OS === 'ios' ? statusBarHeight : 0,
+          marginTop: Platform.OS === 'ios' ? statusBarHeight : statusBarHeight,
           padding: 15,
           flexDirection: 'row',
           alignItems: 'center',
