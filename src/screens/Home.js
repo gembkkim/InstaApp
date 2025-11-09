@@ -25,7 +25,7 @@ const Home = () => {
               fontWeight: '500',
             }}
           >
-            InstaGram 12
+            InstaGram
           </Text>
         </View>
         <View

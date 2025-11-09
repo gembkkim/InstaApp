@@ -81,10 +81,7 @@ const BottomTabScreen = () => {
         tabBarActiveTintColor: '#fb8c00',
         tabBarShowLabel: false,
         headerShown: false,
-        tabBarStyle: {
-          // height: 70,
-          // backgroundColor: 'black',
-        },
+        tabBarStyle: {},
         tabBarIcon: ({ focused, size, color }) =>
           getTabBarIcon(route, focused, size, color),
       })}
