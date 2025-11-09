@@ -78,10 +78,12 @@ const BottomTabScreen = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarHideOnKeyboard: true,
+        tabBarActiveTintColor: '#fb8c00',
         tabBarShowLabel: false,
         headerShown: false,
         tabBarStyle: {
-          height: 70,
+          // height: 70,
+          // backgroundColor: 'black',
         },
         tabBarIcon: ({ focused, size, color }) =>
           getTabBarIcon(route, focused, size, color),
@@ -132,10 +134,10 @@ function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Bottom" component={BottomTabScreen} />
           <Stack.Screen name="Status" component={Status} />
           <Stack.Screen name="FriendProfile" component={FriendProfile} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
+          <Stack.Screen name="Bottom" component={BottomTabScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

@@ -15,9 +15,15 @@ Write-Host "PS1: adb disconnect | Out-Null"
 adb disconnect | Out-Null
 
 # === 3️⃣ 무선 연결 재설정 ===
+Write-Host ":::: Asign Port to ${PORT}"
+Write-Host "PS1: adb tcpip ${IP}:${PORT}"
+adb tcpip "${PORT}"
+
+# === 3️⃣ 무선 연결 재설정 ===
 Write-Host ":::: Connecting to ${IP}:${PORT}"
 Write-Host "PS1: adb connect ${IP}:${PORT}"
 adb connect "${IP}:${PORT}"
+
 
 # === 4️⃣ 연결 확인 ===
 Write-Host ":::: Checking device list"
@@ -41,6 +47,6 @@ Write-Host "PS1: npx react-native run-android"
 npx react-native run-android
 
 # === 7️⃣ 로그 보기 ===
-Write-Host ":::: Attaching logcat"
-Write-Host "PS1: npx react-native log-android"
-npx react-native log-android
+# Write-Host ":::: Attaching logcat"
+# Write-Host "PS1: npx react-native log-android"
+# npx react-native log-android
