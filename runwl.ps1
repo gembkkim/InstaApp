@@ -4,7 +4,7 @@
 # ================================
 
 # === 1️⃣ 변수 설정 ===
-$IP = "192.168.45.115"   # 폴더3의 IP 주소 (Settings → Developer options → Wireless debugging)
+$IP = "192.168.45.26"   # 폴더3의 IP 주소 (Settings → Developer options → Wireless debugging)
 $PORT = "5555"
 $APP_ID = "com.instaapp" # package name
 Write-Host ":::: ${IP}, ${PORT}, ${APP_ID}"
