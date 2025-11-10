@@ -95,7 +95,7 @@ const Status = ({ route, navigation }) => {
           }}
         >
           <Image
-            source={image}
+            source={{ uri: image }}
             style={{
               borderRadius: 100,
               backgroundColor: 'orange',
@@ -134,7 +134,7 @@ const Status = ({ route, navigation }) => {
         </View>
       </View>
       <Image
-        source={image}
+        source={{ uri: image }}
         style={{
           position: 'absolute',
           width: '100%',
